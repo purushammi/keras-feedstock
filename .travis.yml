@@ -40,15 +40,15 @@ install:
       echo ""
       echo "Installing a fresh version of Miniconda."
       MINICONDA_URL="https://repo.continuum.io/miniconda"
-      MINICONDA_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
+      MINICONDA_FILE="Miniconda3-latest-Linux-ppc64le.sh"
       curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
-      bash $MINICONDA_FILE -b
+      bash $MINICONDA_FILE -b -bfp /opt/conda
 
     # Configure conda.
     - |
       echo ""
       echo "Configuring conda."
-      source /Users/travis/miniconda3/bin/activate root
+      source /opt/conda/bin/activate root
       conda install -y conda-build
       conda install -y anaconda-client
       conda config --remove channels defaults
