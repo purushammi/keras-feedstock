@@ -57,7 +57,7 @@ install:
       conda config --set show_channel_urls true
       conda config --set anaconda_upload no
       #conda install --yes --quiet conda-forge-ci-setup=1
-      source run_conda_forge_build_setup
+      #source run_conda_forge_build_setup
 
 script:
   - conda build ./recipe
