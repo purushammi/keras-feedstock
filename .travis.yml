@@ -14,8 +14,7 @@ env:
   global:
     # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.
     - secure: "AtifPFbeNV5JD5cMUsDHNjsjLR1DySAqAx+GNOUqAQX5vVewPNypLkLk5QqfknFjno0dBAYbCCHYrgnroGEdHHwDu2j5tif45DduD1jjx5kihFldDQpV4f27lVDIyhoN6z09drqGdj8CWq6oJCr2bjh4Em5ZKOlZUK/s+9+GG7Rzu5WJfwqZ7f+dD6OiyGu+tyA5elW/NXLFMaKKuBvARxUauIu28O0RMv/FopQvzx0hv8HG1dKce+N8mRhUB0eLdvRUaTzDqiBxJldjFhn5hEB8IAwVe8gsUzANMW+VOvjSjShIsrMjg8bAiTA7loC3QQN+kbSnbnI+0bGfjrIgiDzuO7fyNsTmeyKOc69ya1XmLNq0aFo++18hX5gHw9Zha34sqMHsfXVE92Y51Inq/IUwqE+PL9NZD0jggIHAuGdV08DBmQyWBh38z4AqfRHKwByFN8kJOMlS2TogsfHxcFFlnUzQmBIiIKmY0B3DimWs9zrIgFYz3g5iZpivRBTw4LQ5RabRmNdDnbdoNKGcaOKfRFZmOdsn+ZWiavCfjxTSlMo6itTER8xybVtdZv5YbpVM650aNGTmR1bnE7lsZRdG1/QRCfnwEVywCRxB2SUg2xffG1yZJY77wD6vh7BlclVf26nehZXl0+28U8DSLvCJc539EceMLMNF5VJOmvM="
-
-
+    
 before_install:
     # Fast finish the PR.
     - sudo apt-get -qq update
@@ -37,7 +36,6 @@ before_install:
 install:
     # Install Miniconda.
     - |
-      echo ""
       echo "Installing a fresh version of Miniconda."
       MINICONDA_URL="https://repo.continuum.io/miniconda"
       MINICONDA_FILE="Miniconda3-latest-Linux-ppc64le.sh"
@@ -46,7 +44,6 @@ install:
 
     # Configure conda.
     - |
-      echo ""
       echo "Configuring conda."
       source /opt/conda/bin/activate root
       conda install -y conda-build
@@ -61,5 +58,5 @@ install:
 
 script:
   - conda build ./recipe
-  - lftp -c "open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; set ssl-allow yes; set passive-mode yes; set ssl:verify-certificate no; put -O $FTP_DIRECTORY noarch $(ls /opt/conda/conda-bld/noarch/keras-2.1.6-py36_0*); cd power-ai; cd noarch; chmod 777 $(cd /opt/conda/conda-bld/noarch && ls keras-2.1.6-py36_0*)  "
+  - lftp -c "open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; set ssl-allow yes; set passive-mode yes; set ssl:verify-certificate no; put -O $FTP_DIRECTORY noarch $(ls /opt/conda/conda-bld/noarch/keras-2.1.6-py*); cd power-ai; cd noarch; chmod 777 $(cd /opt/conda/conda-bld/noarch && ls keras-2.1.6-py*)  "
   #- upload_or_check_non_existence ./recipe conda-forge --channel=main -m ./.ci_support/${CONFIG}.yaml
